@@ -1,7 +1,7 @@
 # MNL Hockey League API
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/6c339980c6f742c7a23de84e313e6af4)](https://www.codacy.com/app/jdrager2/mnl-api?utm_source=github.com&utm_medium=referral&utm_content=monday-night-lights/mnl-api&utm_campaign=badger)
-[![CircleCI](https://circleci.com/gh/monday-night-lights/mnl-api.svg?style=svg)](https://circleci.com/gh/monday-night-lights/mnl-api)
+[![CircleCI](https://circleci.com/gh/monday-night-lights/mnl-api.svg?style=shield)](https://circleci.com/gh/monday-night-lights/mnl-api)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/6c339980c6f742c7a23de84e313e6af4)](https://www.codacy.com/app/jdrager2/mnl-api?utm_source=github.com&utm_medium=referral&utm_content=monday-night-lights/mnl-api&utm_campaign=badger) 
 
 A web API for managing Teams, Players, Games, and more for the Monday Night
 Lights hockey league.
