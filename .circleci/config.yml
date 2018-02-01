@@ -5,7 +5,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/mnl-api/django
+    working_directory: ~/mnl-api
 
     docker:
       # specify the version you desire here
@@ -25,14 +25,13 @@ jobs:
         environment:
         - POSTGRES_USER: root
         - POSTGRES_DB: circle_db
-    working_directory: ~/repo
 
     steps:
       - checkout
 
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "requirements.txt" }}
+          - v1-dependencies-{{ checksum "django/requirements.txt" }}
           - v1-dependencies-
 
       - run:
@@ -51,7 +50,7 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            python manage.py test
+            python django/manage.py test django
 
       - store_artifacts:
           path: test-reports
