@@ -39,7 +39,7 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            pip install -r requirements.txt
+            pip install -r django/requirements.txt
 
       - save_cache:
           paths:
