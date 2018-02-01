@@ -84,4 +84,4 @@ For example, to run the
 Unit tests can be run with the built-in
 [Django test runner](https://docs.djangoproject.com/en/2.0/topics/testing/overview/):
 
-    $ docker-compose exec django /venv/bin/python manage.py test
+    vagrant@contrib-jessie:/src$ docker-compose exec django /venv/bin/python manage.py test
