@@ -2,7 +2,7 @@ version: '3'
 services:
   postgres:
     container_name: mnl_postgres
-    image: postgres:9.6.1-alpine
+    image: postgres:9.6.6-alpine
     restart: always
     env_file: env/dev.env
     volumes:
