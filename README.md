@@ -1,5 +1,7 @@
 # MNL Hockey League API
 
+[![CircleCI](https://circleci.com/gh/monday-night-lights/mnl-api/tree/master.svg?style=svg)](https://circleci.com/gh/monday-night-lights/mnl-api/tree/master)
+
 A web API for managing Teams, Players, Games, and more for the Monday Night
 Lights hockey league.
 
