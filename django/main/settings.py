@@ -20,7 +20,12 @@ INSTALLED_APPS = [
 
     'rest_framework',
 
-    'users'
+    # 'dj',
+    # 'games',
+    'seasons',
+    # 'teams',
+    'users',
+    # 'venues',
 ]
 
 MIDDLEWARE = [
