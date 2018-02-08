@@ -11,6 +11,9 @@ framework, [Django Rest Framework 3.7](http://www.django-rest-framework.org/)
 API library, and a [PostgreSQL 9.6](https://www.postgresql.org/docs/9.6/static/index.html)
 database.
 
+The Python code is written in accordance to the 
+[PEP 8 Style Guide](https://www.python.org/dev/peps/pep-0008/#introduction).
+
 ## Development
 
 To make set up as simple as possible across different operating systems, a
