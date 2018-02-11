@@ -1,4 +1,4 @@
-from django.db import models
+# from django.db import models
 
 # http://django-organizations.readthedocs.io/en/latest/cookbook.html#custom-org-with-simple-inheritance
 # Team
