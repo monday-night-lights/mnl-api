@@ -1,7 +1,7 @@
 # MNL Hockey League API
 
 [![CircleCI](https://circleci.com/gh/monday-night-lights/mnl-api.svg?style=shield)](https://circleci.com/gh/monday-night-lights/mnl-api)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/6c339980c6f742c7a23de84e313e6af4)](https://www.codacy.com/app/jdrager2/mnl-api?utm_source=github.com&utm_medium=referral&utm_content=monday-night-lights/mnl-api&utm_campaign=badger)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/6c339980c6f742c7a23de84e313e6af4)](https://www.codacy.com/app/monday-night-lights/mnl-api?utm_source=github.com&utm_medium=referral&utm_content=monday-night-lights/mnl-api&utm_campaign=badger)
 
 A web API for managing Teams, Players, Games, and more for the Monday Night
 Lights hockey league.
@@ -11,7 +11,7 @@ framework, [Django Rest Framework 3.7](http://www.django-rest-framework.org/)
 API library, and a [PostgreSQL 9.6](https://www.postgresql.org/docs/9.6/static/index.html)
 database.
 
-The Python code is written in accordance to the 
+The Python code is written in accordance to the
 [PEP 8 Style Guide](https://www.python.org/dev/peps/pep-0008/#introduction).
 
 ## Development
