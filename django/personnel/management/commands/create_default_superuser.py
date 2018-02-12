@@ -1,7 +1,7 @@
 from django.db.utils import IntegrityError
 
 from main.management.base import DevOnlyCommand
-from users.models import User
+from personnel.models import User
 
 
 class Command(DevOnlyCommand):
