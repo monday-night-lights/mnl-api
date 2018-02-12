@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     'personnel',
     'seasons',
     # 'teams',
-    # 'venues',
+    'venues',
 ]
 
 MIDDLEWARE = [
