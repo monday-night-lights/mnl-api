@@ -1,54 +1,70 @@
 # from django.db import models
 
+
 # Game
-# season (FK)
-# home (FK=TeamSeason)
-# away (FK=TeamSeason)
-# arena (FK=Venue)
-# rink
-# home_lockerroom
-# away_lockerroom
-# home_drinks
-# away_drinks
-# notes
-#
-# Shot
-# game (FK)
-# period
-# time
-# team (FK=TeamSeason)
-# player (FK)
-# ice_location
-# notes
-#
-# Goal
-# shot (FK)
-# assisted_by_1 (FK=Player)
-# assisted_by_2 (FK=Player)
-#
-# Penalty
-# game (FK)
-# period
-# time
-# team (FK=TeamSeason)
-# player (FK)
-# length
-# penalty_type
-# ice_location
-# notes
-#
+#     season (FK)
+#     home (FK TeamSeason)
+#     away (FK TeamSeason)
+#     arena (FK Venue)
+#     rink (FK on save ensure rink in arena)
+#     lr_home (FK on save ensure locker room in rink)
+#     lr_away (FK on save ensure locker room in rink)
+#     notes
+
+
+# GameDuty
+#     duty (choices=('Score Keeper', 'DJ', 'Referee', 'Beer'))
+#     game (FK)
+#     assignee (FK User, on save ensure user has ability e.g. is certified to ref, participates in drinks)
+
+
+# GameEvent(abstract)
+#     game (FK)
+#     period (choices=1, 2, 3)
+#     time
+#     team (FK TeamSeason, on save ensure team in game)
+#     player (FK SeasonTeamPlayer, on save ensure player in game)
+#     ice_location
+#     notes
+
+
+# Shot(GameEvent)
+#     pass
+
+
+# Goal(Shot)
+#     pass
+
+
+# Assist
+#     goal (FK)
+#     player (FK SeasonTeamPlayer)
+
+
+# Penalty(GameEvent)
+#     penalty_type
+#     length
+
+
+# GameStar
+#     game (FK)
+#     star_level (choices=(1, 2, 3))
+#     player (FK SeasonTeamPlayer on save ensure player in game)
+
+
 # GameAttendance
-# game (FK)
-# player (FK)
-# attendance (choices=in,tentative,out)
-#
+#     game (FK)
+#     player (FK SeasonTeamPlayer)
+#     attendance (choices=in, tentative, out)
+
+
 # SubRequest
-# game (FK)
-# team (FK=TeamSeason)
-# player_out (FK=Player)
-# player_in (FK=Player)
-# requested_at (datetime)
-# requested_by (FK=Player)
-# decision (choices=null,approved,denied)
-# decision_at (datetime)
-# decision_by (FK=Player)
+#     game (FK)
+#     team (FK SeasonTeam)
+#     player_out (FK SeasonTeamPlayer)
+#     player_in (FK SeasonSubstitute)
+#     requested_at (datetime)
+#     requested_by (FK SeasonTeamPlayer, limit to player out's teammates)
+#     decision (choices=null, approved, denied)
+#     decision_at (datetime)
+#     decision_by (FK SeasonTeamPlayer, limit to player out's opposing team players)
