@@ -25,7 +25,6 @@ INSTALLED_APPS = [
     # 'games',
     'personnel',
     'seasons',
-    # 'teams',
     'venues',
 ]
 
