@@ -8,5 +8,5 @@ urlpatterns = [
     url(r'^$', RedirectView.as_view(pattern_name='admin:index'), name='home'),
     url(r'^api/?$', APIHome.as_view(), name='api-home'),
     url(r'^admin/', mnl_admin.urls),
-    url(r'^api/auth/', include('users.urls')),
+    url(r'^api/auth/', include('personnel.urls')),
 ]
