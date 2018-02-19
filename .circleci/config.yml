@@ -101,7 +101,7 @@ workflows:
   build_test_and_approved_deploy:
     jobs:
       - build
-      - test
+      - test:
         requires:
           - build
       - hold:
