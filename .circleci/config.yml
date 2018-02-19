@@ -102,12 +102,12 @@ workflows:
     jobs:
       - build
       - test
-          requires:
-            - build
+        requires:
+          - build
       - hold:
-          type: approval
-          requires:
+        type: approval
+        requires:
            - test
       - deploy:
-          requires:
-            - hold
+        requires:
+          - hold
