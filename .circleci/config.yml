@@ -2,29 +2,25 @@
 #
 # Check https://circleci.com/docs/2.0/language-python/ for more details
 
+defaults: &defaults
+  working_directory: ~/mnl-api
+  docker:
+    - image: circleci/python:3.6.1
+      environment:
+      - SECRET_KEY: circle_secret_key
+      - POSTGRES_HOST: 127.0.0.1
+      - POSTGRES_PORT: 5432
+      - POSTGRES_DB: circle_db
+      - POSTGRES_USER: root
+    - image: circleci/postgres:9.6-alpine
+      environment:
+      - POSTGRES_USER: root
+      - POSTGRES_DB: circle_db
+
 version: 2
 jobs:
   build:
-    working_directory: ~/mnl-api
-
-    docker:
-      # specify the version you desire here
-      # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
-      - image: circleci/python:3.6.1
-        environment:
-        - SECRET_KEY: circle_secret_key
-        - POSTGRES_HOST: 127.0.0.1
-        - POSTGRES_PORT: 5432
-        - POSTGRES_DB: circle_db
-        - POSTGRES_USER: root
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      - image: circleci/postgres:9.6-alpine
-        environment:
-        - POSTGRES_USER: root
-        - POSTGRES_DB: circle_db
+    <<: *defaults
 
     steps:
       - checkout
@@ -45,6 +41,15 @@ jobs:
           paths:
             - ./venv
           key: v1-dependencies-{{ checksum "django/requirements.txt" }}
+  test:
+    <<: *defaults
+    
+    steps:
+      - checkout
+      - restore_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-{{ checksum "django/requirements.txt" }}
 
       - run:
           name: run tests
@@ -56,7 +61,6 @@ jobs:
           path: test-reports
           destination: test-reports
   deploy:
-    working_directory: ~/mnl-api
     docker:
       - image: circleci/python:3.6.1
     steps:
@@ -69,7 +73,27 @@ jobs:
             sudo apt-get -y -qq update
             sudo apt-get install python-pip python-dev build-essential
             sudo pip install awsebcli --upgrade
-
+            sudo pip install awscli --upgrade
+      - run:
+          name: Set Environment
+          command: |
+            eb use mnl-api
+            eb config
       - run:
           name: Deploying
           command: eb deploy mnl-api
+workflows:
+  version: 2
+  build_test_and_approved_deploy:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      #- hold:
+      #    type: approval
+      #    requires:
+      #      - test
+      - deploy:
+          requires:
+            - test
