@@ -1,0 +1,9 @@
+branch-defaults:
+  master:
+    environment: mnl-api
+global:
+  application_name: mnl
+  default_ec2_keyname: XXXXXX
+  default_platform: 64bit Debian jessie v2.8.4 running Python 3.4 (Preconfigured - Docker)
+  default_region: us-east-2
+  sc: git
