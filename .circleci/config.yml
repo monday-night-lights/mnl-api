@@ -55,6 +55,29 @@ jobs:
       - store_artifacts:
           path: test-reports
           destination: test-reports
+  test:
+    working_directory: ~/mnl-api
+
+    docker:
+      - image: circleci/python:3.6.1
+        environment:
+        - SECRET_KEY: circle_secret_key
+        - POSTGRES_HOST: 127.0.0.1
+        - POSTGRES_PORT: 5432
+        - POSTGRES_DB: circle_db
+        - POSTGRES_USER: root
+
+    steps:
+      - checkout
+      - run:
+          name: run tests
+          command: |
+            . venv/bin/activate
+            python django/manage.py test django
+
+      - store_artifacts:
+          path: test-reports
+          destination: test-reports
   deploy:
     working_directory: ~/mnl-api
     docker:
@@ -73,3 +96,18 @@ jobs:
       - run:
           name: Deploying
           command: eb deploy mnl-api
+workflows:
+  version: 2
+  build_test_and_approved_deploy:
+    jobs:
+      - build
+      - test
+          requires:
+            - build
+      - hold:
+          type: approval
+          requires:
+           - test
+      - deploy:
+          requires:
+            - hold
