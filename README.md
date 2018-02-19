@@ -1,7 +1,7 @@
 # MNL Hockey League API
 
 [![CircleCI](https://circleci.com/gh/monday-night-lights/mnl-api.svg?style=shield)](https://circleci.com/gh/monday-night-lights/mnl-api)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/6c339980c6f742c7a23de84e313e6af4)](https://www.codacy.com/app/jdrager2/mnl-api?utm_source=github.com&utm_medium=referral&utm_content=monday-night-lights/mnl-api&utm_campaign=badger) 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/6c339980c6f742c7a23de84e313e6af4)](https://www.codacy.com/app/monday-night-lights/mnl-api?utm_source=github.com&utm_medium=referral&utm_content=monday-night-lights/mnl-api&utm_campaign=badger)
 
 A web API for managing Teams, Players, Games, and more for the Monday Night
 Lights hockey league.
@@ -10,6 +10,9 @@ It is uses the [Django 2.0](https://docs.djangoproject.com/en/2.0/) web
 framework, [Django Rest Framework 3.7](http://www.django-rest-framework.org/)
 API library, and a [PostgreSQL 9.6](https://www.postgresql.org/docs/9.6/static/index.html)
 database.
+
+The Python code is written in accordance to the
+[PEP 8 Style Guide](https://www.python.org/dev/peps/pep-0008/#introduction).
 
 ## Development
 
@@ -59,7 +62,8 @@ as they are for development purposes.
 
 Use Vagrant to provision and run a Debian virtual development server
 
-    $ vagrant plugin install vagrant-docker-compose
+    $ vagrant plugin install vagrant-docker-compose vagrant-vbguest
+    $ vagrant vbguest # https://stackoverflow.com/a/37706087/1797103
     $ vagrant up
 
 The application will be running at [localhost:8888/](http://localhost:8888/).

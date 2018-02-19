@@ -1,12 +1,13 @@
-from django.conf import settings
 from django.core.management import call_command
 from django.core.management.color import color_style
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.utils.six import StringIO
 
-from users.models import User
+from personnel.models import User
 
+from django.conf import settings
 
+@override_settings(TESTING=False)
 class UserCommandsTest(TestCase):
 
     def setUp(self):

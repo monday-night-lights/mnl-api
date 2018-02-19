@@ -2,7 +2,7 @@ FROM python:3.6-alpine
 
 RUN ifconfig -a || ip a l
 
-ADD requirements.txt /requirements.txt
+COPY requirements.txt /requirements.txt
 
 RUN apk update && apk add bash
 RUN set -ex \
