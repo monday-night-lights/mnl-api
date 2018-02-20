@@ -46,20 +46,11 @@ jobs:
             - ./venv
           key: v1-dependencies-{{ checksum "django/requirements.txt" }}
 
-      - run:
-          name: run tests
-          command: |
-            . venv/bin/activate
-            python django/manage.py test django
-
-      - store_artifacts:
-          path: test-reports
-          destination: test-reports
   test:
     working_directory: ~/mnl-api
 
     docker:
-      - image: circleci/python:3.6.1
+      - image: circleci/python:3.6.1-browsers
         environment:
         - SECRET_KEY: circle_secret_key
         - POSTGRES_HOST: 127.0.0.1
@@ -69,6 +60,11 @@ jobs:
 
     steps:
       - checkout
+      - restore_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-{{ checksum "django/requirements.txt" }}
+          
       - run:
           name: run tests
           command: |
