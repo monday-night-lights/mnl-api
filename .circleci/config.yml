@@ -2,14 +2,10 @@
 #
 # Check https://circleci.com/docs/2.0/language-python/ for more details
 
-version: 2
-jobs:
-  build:
-    working_directory: ~/mnl-api
+defaults: &defaults
+   working_directory: ~/mnl-api
 
     docker:
-      # specify the version you desire here
-      # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
       - image: circleci/python:3.6.1
         environment:
         - SECRET_KEY: circle_secret_key
@@ -18,13 +14,15 @@ jobs:
         - POSTGRES_DB: circle_db
         - POSTGRES_USER: root
 
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
       - image: circleci/postgres:9.6-alpine
         environment:
         - POSTGRES_USER: root
         - POSTGRES_DB: circle_db
+
+version: 2
+jobs:
+  build:
+    <<: *defaults
 
     steps:
       - checkout
@@ -47,29 +45,14 @@ jobs:
           key: v1-dependencies-{{ checksum "django/requirements.txt" }}
 
   test:
-    working_directory: ~/mnl-api
-
-    docker:
-      - image: circleci/python:3.6.1-browsers
-        environment:
-        - SECRET_KEY: circle_secret_key
-        - POSTGRES_HOST: 127.0.0.1
-        - POSTGRES_PORT: 5432
-        - POSTGRES_DB: circle_db
-        - POSTGRES_USER: root
-
-      - image: circleci/postgres:9.6-alpine
-        environment:
-        - POSTGRES_USER: root
-        - POSTGRES_DB: circle_db
-        
+    <<: *defaults
     steps:
       - checkout
       - restore_cache:
           paths:
             - ./venv
           key: v1-dependencies-{{ checksum "django/requirements.txt" }}
-          
+
       - run:
           name: run tests
           command: |
