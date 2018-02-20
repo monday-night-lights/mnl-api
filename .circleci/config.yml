@@ -77,9 +77,7 @@ jobs:
 
       - run:
           name: Deploying
-          command: 
-            - eb use mnl-api --profile default
-            - eb deploy --profile default
+          command: eb deploy mnl-api
 workflows:
   version: 2
   build_test_and_approved_deploy:
