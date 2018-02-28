@@ -76,6 +76,10 @@ jobs:
             sudo pip install awsebcli --upgrade
             sudo pip install awscli --upgrade
       - run:
+          name: Setup AWS credentials
+          command: |
+            mkdir ~/.aws && printf "[profile eb-cli]\naws_access_key_id = ${AWS_ACCESS_KEY_ID}\naws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}" > ~/.aws/config
+      - run:
           name: Configure AWS
           command: |
             aws configure --profile default
@@ -90,10 +94,10 @@ workflows:
       - test:
           requires:
             - build
-      - hold:
-          type: approval
-          requires:
-            - test
+      #- hold:
+      #    type: approval
+      #    requires:
+      #      - test
       - deploy:
           requires:
             - hold
