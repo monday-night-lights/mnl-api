@@ -71,14 +71,10 @@ jobs:
           name: Installing deployment dependencies
           working_directory: /
           command: |
-            apt-get -y -qq update
-            apt-get install python-pip python-dev build-essential
-            pip install awsebcli --upgrade
-            pip install awscli --upgrade
-      - run:
-          name: Setup AWS credentials
-          command: |
-            mkdir ~/.aws && printf "[profile eb-cli]\naws_access_key_id = ${AWS_ACCESS_KEY_ID}\naws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}" > ~/.aws/config
+            sudo apt-get -y -qq update
+            sudo apt-get install python-pip python-dev build-essential
+            sudo pip install awsebcli --upgrade
+            sudo pip install awscli --upgrade
       - run:
           name: Configure AWS
           command: |
