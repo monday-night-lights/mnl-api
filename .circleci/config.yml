@@ -79,7 +79,7 @@ jobs:
           name: Configure AWS
           working_directory: /
           command: |
-            aws configure
+            aws configure --profile default
       - run:
           name: Deploying
           command: eb deploy mnl-api
