@@ -77,7 +77,6 @@ jobs:
             sudo pip install awscli --upgrade
       - run:
           name: Configure AWS
-          working_directory: /
           command: |
             aws configure --profile default
       - run:
