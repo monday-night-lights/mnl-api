@@ -75,11 +75,10 @@ jobs:
             sudo pip install awsebcli --upgrade
             sudo pip install awscli --upgrade
       - run:
-          name: Verify Beanstalk
+          name: Set Environment
           command: |
+            eb use mnl-api
             eb config
-            echo ${CIRCLECI}
-            echo $CIRCLECI
       - run:
           name: Deploying
           command: eb deploy mnl-api
