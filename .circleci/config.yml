@@ -74,15 +74,12 @@ jobs:
             sudo apt-get install python-pip python-dev build-essential
             sudo pip install awsebcli --upgrade
             sudo pip install awscli --upgrade
-      #- run:
-      #    name: Configure AWS
-      #    command: |
-      #      aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID}
-      #      aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY}
-      #      aws configure set default.region us-east-2
-      #      aws configure set default.output json
-      #      echo ${AWS_ACCESS_KEY_ID}
-      #      echo ${AWS_SECRET_ACCESS_KEY}
+      - run:
+          name: Verify Beanstalk
+          command: |
+            eb config
+            echo ${CIRCLECI}
+            echo $CIRCLECI
       - run:
           name: Deploying
           command: eb deploy mnl-api
