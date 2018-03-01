@@ -61,7 +61,6 @@ jobs:
           path: test-reports
           destination: test-reports
   deploy:
-    working_directory: ~/mnl-api
     docker:
       - image: circleci/python:3.6.1
     steps:
