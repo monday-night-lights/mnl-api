@@ -10,4 +10,4 @@ done
 /venv/bin/python manage.py create_default_superuser
 /venv/bin/python manage.py collectstatic --noinput
 
-/venv/bin/gunicorn main.wsgi:application -w 2 -b :8000 --reload
+/venv/bin/uwsgi mnl.ini

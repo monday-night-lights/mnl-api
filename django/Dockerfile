@@ -15,6 +15,7 @@ RUN set -ex \
     pcre-dev \
     postgresql-dev \
     postgresql-client \
+    python3-dev \
   && python3.6 -m venv /venv \
   && /venv/bin/pip install -U pip \
   && LIBRARY_PATH=/lib:/usr/lib /bin/sh -c "/venv/bin/pip install --no-cache-dir -r /requirements.txt" \
@@ -33,4 +34,6 @@ COPY . .
 
 EXPOSE 8000
 
+RUN adduser -D -u 1001 django
+USER django
 ENTRYPOINT ["/srv/init.sh"]
