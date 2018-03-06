@@ -99,7 +99,7 @@ workflows:
               only: /master/
       - deploy:
           requires:
-            - test
+            - hold
           filters:
             branches:
               only: /master/
