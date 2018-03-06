@@ -17,6 +17,7 @@ class VenuesModelsTestCase(TestCase):
         self.assertEqual(arena_1.full_address,
                          '1555 E Woodward Heights Blvd Hazel Park Michigan 48030 US')
         self.assertEqual(arena_1.coordinates, (42.4694405, -83.0897482))
+
         self.assertEqual(arena_1.formatted_address,
                          '1555 E Woodward Heights Blvd, Hazel Park, MI 48030, USA')
 
@@ -24,9 +25,11 @@ class VenuesModelsTestCase(TestCase):
                                        address_line_1='1819 Big Beaver',
                                        city='Troy', state='MI')
         self.assertEqual(str(arena_2), 'Troy Sports Center')
+
         self.assertEqual(arena_2.full_address,
                          '1819 E Big Beaver Rd Troy Michigan 48083 US')
         self.assertEqual(arena_2.coordinates, (42.5653534, -83.111801))
+
         self.assertEqual(arena_2.formatted_address,
                          '1819 E Big Beaver Rd, Troy, MI 48083, USA')
 
@@ -34,6 +37,7 @@ class VenuesModelsTestCase(TestCase):
                                      address_line_1='23420 John R',
                                      city='Hazel Park', state='MI')
         self.assertEqual(str(venue), 'House of Shamrocks')
+
         self.assertEqual(venue.full_address,
                          '23420 John R Rd Hazel Park Michigan 48030 US')
         self.assertEqual(venue.coordinates, (42.464645, -83.1037792))

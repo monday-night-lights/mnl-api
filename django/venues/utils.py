@@ -1,4 +1,5 @@
 from json import loads
+
 from urllib import parse, request
 
 from django.core.exceptions import ImproperlyConfigured

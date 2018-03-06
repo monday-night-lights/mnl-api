@@ -34,7 +34,7 @@ GEOCODE_RESPONSES = {
     '1819 Big Beaver Troy MI': TROY_SPORTS_CENTER,
     '23420 John R Hazel Park MI': HOUSE_OF_SHAMROCKS,
     '2645 Woodward Detroit MI': LITTLE_CAESARS_ARENA,
-    '2645 Woodward Ave Detroit Michigan 48201 US': LITTLE_CAESARS_ARENA,
+    '2645 Woodward Ave Detroit Michigan 48201 US': LITTLE_CAESARS_ARENA
 }
 
 def mock_geocode(address):

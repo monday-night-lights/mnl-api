@@ -90,10 +90,16 @@ workflows:
       - test:
           requires:
             - build
-      #- hold:
-      #    type: approval
-      #    requires:
-      #      - test
+      - hold:
+          type: approval
+          requires:
+            - test
+          filters:
+            branches:
+              only: /master/
       - deploy:
           requires:
             - test
+          filters:
+            branches:
+              only: /master/
