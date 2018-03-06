@@ -48,7 +48,7 @@ as they are for development purposes.
 ##### Default Dev Variables
 
     SECRET_KEY=dev_secret_key
-    ALLOWED_HOSTS=localhost,127.0.0.1
+    ALLOWED_HOSTS=172.30.0.10
     HOST=django
     DEBUG=True
 
@@ -63,10 +63,10 @@ as they are for development purposes.
 Use Vagrant to provision and run a Debian virtual development server
 
     $ vagrant plugin install vagrant-docker-compose vagrant-vbguest
-    $ vagrant vbguest # https://stackoverflow.com/a/37706087/1797103
+    $ vagrant vbguest # see https://stackoverflow.com/a/37706087/1797103 for more info
     $ vagrant up
 
-The application will be running at [localhost:8888/](http://localhost:8888/).
+The application will be running at [https://172.30.0.10](https://172.30.0.10).
 
 ### Running Django Management Commands
 
@@ -89,3 +89,24 @@ Unit tests can be run with the built-in
 [Django test runner](https://docs.djangoproject.com/en/2.0/topics/testing/overview/):
 
     vagrant@contrib-jessie:/src$ docker-compose exec django /venv/bin/python manage.py test
+
+### SSL in Development
+
+In order to develop in an environment as production-like as possible, we are
+using a self-signed SSL certificate. The dev certificate is already setup but
+the steps taken to create it are documented below for reference. The
+certificate is set to expire one year from its creation date so you may need to
+generate a new one if you are working on this project on or after the
+expiration date.
+
+To create a self-signed key and certificate pair, ssh into the vagrant virtual
+machine and navigate to the `nginx/certs` directory. Then use the OpenSSL
+[`req` command](https://www.openssl.org/docs/manmaster/man1/req.html) to create
+the `.key` and `.crt` files.
+
+```
+$ vagrant ssh
+$ cd /src/nginx/certs
+$ openssl req -x509 -nodes -days 365 -newkey rsa \
+               -config dev.conf -keyout dev.key -out dev.crt
+```
