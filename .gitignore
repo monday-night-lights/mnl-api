@@ -1,0 +1,15 @@
+__pycache__/
+.idea/
+.project/
+.vagrant/
+fixtures/
+var/
+
+.DS_Store
+*.orig
+*.pyc
+*#*
+*~
+
+*.env
+!dev.env
