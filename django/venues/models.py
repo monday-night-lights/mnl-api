@@ -2,6 +2,7 @@ from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
 from .utils import clean_whitespace, geocode
+from main.logging import logger
 
 
 class Location(models.Model):
@@ -12,15 +13,15 @@ class Location(models.Model):
     country = models.CharField(max_length=50, blank=True)
     postal = models.CharField(max_length=10, blank=True)
 
-    formatted_address = models.CharField(max_length=245, blank=True)
-    lat = models.FloatField(blank=True)
-    lng = models.FloatField(blank=True)
+    formatted_address = models.CharField(max_length=300, null=True, blank=True)
+    lat = models.FloatField(null=True, blank=True)
+    lng = models.FloatField(null=True, blank=True)
 
     class Meta:
         abstract = True
 
     def save(self, *args, **kwargs):
-        if not (self.pk or self.coordinates):
+        if not (self.pk and self.coordinates and self.formatted_address):
             self.geocode_address()
         else:
             existing = self.__class__.objects.get(pk=self.pk)
@@ -58,6 +59,9 @@ class Location(models.Model):
             return
 
         data = geocode(self.full_address)
+        logger.info('Geocoding "{address}"\n{response}'.format(
+            address=self.full_address, response=data))
+
         if data['status'] == 'OK':
             result = data['results'][0]
             self.lat = result['geometry']['location']['lat']
@@ -84,7 +88,8 @@ class Venue(Location):
 
 
 class Arena(Venue):
-    manager = models.CharField(max_length=40, help_text='Contact person at the arena')
+    manager = models.CharField(max_length=40, blank=True,
+                               help_text='Contact person at the arena')
 
 
 # Rink

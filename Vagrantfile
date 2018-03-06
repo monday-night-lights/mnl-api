@@ -4,7 +4,6 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "debian/contrib-jessie64"
 
-  config.vm.network "forwarded_port", guest: 80, host: 8888
   config.vm.network "private_network", ip: "172.30.0.10"
 
   config.vm.synced_folder ".", "/src", type: "virtualbox"
