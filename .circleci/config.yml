@@ -3,7 +3,7 @@
 # Check https://circleci.com/docs/2.0/language-python/ for more details
 
 defaults: &defaults
-  working_directory: ~/mnl-api/django
+  working_directory: ~/mnl-api
   docker:
     - image: circleci/python:3.6.1
       environment:
@@ -27,7 +27,7 @@ jobs:
 
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "requirements.txt" }}
+          - v1-dependencies-{{ checksum "django/requirements.txt" }}
           - v1-dependencies-
 
       - run:
@@ -35,12 +35,12 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            pip install -r requirements.txt
+            pip install -r django/requirements.txt
 
       - save_cache:
           paths:
             - ./venv
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
+          key: v1-dependencies-{{ checksum "django/requirements.txt" }}
   test:
     <<: *defaults
     
@@ -49,7 +49,7 @@ jobs:
       - restore_cache:
           paths:
             - ./venv
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
+          key: v1-dependencies-{{ checksum "django/requirements.txt" }}
 
       - run:
           name: run tests
@@ -61,11 +61,11 @@ jobs:
           path: test-reports
           destination: test-reports
   deploy:
-    docker:
-      - image: circleci/python:3.6.1
+    <<: *defaults
+    
     steps:
       - checkout
-
+        path: ~/mnl-api/django
       - run:
           name: Installing deployment dependencies
           working_directory: /
