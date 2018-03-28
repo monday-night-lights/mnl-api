@@ -55,7 +55,7 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            python manage.py test django
+            python django/manage.py test django
 
       - store_artifacts:
           path: test-reports
