@@ -3,7 +3,7 @@
 # Check https://circleci.com/docs/2.0/language-python/ for more details
 
 defaults: &defaults
-  working_directory: ~/mnl-api
+  working_directory: ~/mnl-api/django
   docker:
     - image: circleci/python:3.6.1
       environment:
@@ -27,7 +27,7 @@ jobs:
 
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "django/requirements.txt" }}
+          - v1-dependencies-{{ checksum "requirements.txt" }}
           - v1-dependencies-
 
       - run:
@@ -35,12 +35,12 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            pip install -r django/requirements.txt
+            pip install -r requirements.txt
 
       - save_cache:
           paths:
             - ./venv
-          key: v1-dependencies-{{ checksum "django/requirements.txt" }}
+          key: v1-dependencies-{{ checksum "requirements.txt" }}
   test:
     <<: *defaults
     
@@ -49,19 +49,18 @@ jobs:
       - restore_cache:
           paths:
             - ./venv
-          key: v1-dependencies-{{ checksum "django/requirements.txt" }}
+          key: v1-dependencies-{{ checksum "requirements.txt" }}
 
       - run:
           name: run tests
           command: |
             . venv/bin/activate
-            python django/manage.py test django
+            python manage.py test django
 
       - store_artifacts:
           path: test-reports
           destination: test-reports
   deploy:
-    working_directory: ~/mnl-api/django
     docker:
       - image: circleci/python:3.6.1
     steps:
@@ -91,16 +90,9 @@ workflows:
       - test:
           requires:
             - build
-      - hold:
-          type: approval
-          requires:
-            - test
-          filters:
-            branches:
-              only: /master/
       - deploy:
           requires:
-            - hold
+            - test
           filters:
             branches:
               only: /master/
