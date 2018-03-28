@@ -65,7 +65,7 @@ jobs:
     
     steps:
       - checkout
-        path: ~/mnl-api/django
+          path: ~/mnl-api/django
       - run:
           name: Installing deployment dependencies
           working_directory: /
