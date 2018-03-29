@@ -68,7 +68,6 @@ jobs:
           path: ~/mnl-api/
       - run:
           name: Installing deployment dependencies
-          working_directory: /django
           command: |
             sudo apt-get -y -qq update
             sudo apt-get install python-pip python-dev build-essential
@@ -76,12 +75,14 @@ jobs:
             sudo pip install awscli --upgrade
       - run:
           name: Set Environment
+          working_directory: django
           command: |
             eb use mnl-api
             eb init
             eb config
       - run:
           name: Deploying
+          working_directory: django
           command: eb deploy mnl-api
 workflows:
   version: 2
