@@ -65,10 +65,10 @@ jobs:
     
     steps:
       - checkout:
-          path: ~/mnl-api/django
+          path: ~/mnl-api/
       - run:
           name: Installing deployment dependencies
-          working_directory: /
+          working_directory: /django
           command: |
             sudo apt-get -y -qq update
             sudo apt-get install python-pip python-dev build-essential
