@@ -61,12 +61,11 @@ jobs:
           path: test-reports
           destination: test-reports
   deploy:
-    working_directory: ~/mnl-api/django
-    docker:
-      - image: circleci/python:3.6.1
+    <<: *defaults
+    
     steps:
-      - checkout
-
+      - checkout:
+          path: ~/mnl-api/django
       - run:
           name: Installing deployment dependencies
           working_directory: /
@@ -91,16 +90,9 @@ workflows:
       - test:
           requires:
             - build
-      - hold:
-          type: approval
-          requires:
-            - test
-          filters:
-            branches:
-              only: /master/
       - deploy:
           requires:
-            - hold
+            - test
           filters:
             branches:
               only: /master/
