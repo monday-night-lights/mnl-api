@@ -78,6 +78,7 @@ jobs:
           name: Set Environment
           command: |
             eb use mnl-api
+            eb init
             eb config
       - run:
           name: Deploying
