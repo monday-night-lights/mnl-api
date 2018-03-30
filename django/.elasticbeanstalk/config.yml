@@ -4,6 +4,5 @@ branch-defaults:
 global:
   application_name: mnl
   default_ec2_keyname: mnl-api-keypair
-  default_platform: Generic Docker Container
   default_region: us-east-2
   sc: git
