@@ -75,7 +75,6 @@ SSH into the Vagrant VM and use `docker-compose exec` to execute commands
 inside the Django container:
 
     $ vagrant ssh
-    vagrant@contrib-jessie:~$ cd /src
     vagrant@contrib-jessie:/src$ docker-compose exec django <sh command>
 
 For example, to run the
