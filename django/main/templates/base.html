@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>MNLHL</title>
+</head>
+<body>
+  <header>
+    <img src="{% static 'img/mnlhl-logo.png' %}"
+         alt="Monday Night Lights Hockey League">
+    <nav>
+      <a href="{% url 'api-home' %}">API</a>
+      <a href="{% url 'admin:index' %}">Admin</a>
+    </nav>
+  </header>
+  {% block content %}{% endblock content %}
+</body>
+</html>
