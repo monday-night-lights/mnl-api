@@ -41,9 +41,7 @@ jobs:
           paths:
             - ./venv
           key: v1-dependencies-{{ checksum "django/requirements.txt" }}
-  test:
-    <<: *defaults
-    
+  test:  
     steps:
       - checkout
       - restore_cache:
