@@ -34,6 +34,4 @@ COPY . .
 
 EXPOSE 8000
 
-RUN adduser -D -u 1001 django
-USER django
 ENTRYPOINT ["/srv/init.sh"]
