@@ -97,4 +97,6 @@ workflows:
             - test
           filters:
             branches:
-              only: /master/
+              only: 
+                - /master/
+                - /master--ci-cd/
