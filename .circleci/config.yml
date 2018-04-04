@@ -42,6 +42,7 @@ jobs:
             - ./venv
           key: v1-dependencies-{{ checksum "django/requirements.txt" }}
   test:  
+    working_directory: ~/mnl-api
     docker:
         - image: circleci/python:3.6.1
     steps:
