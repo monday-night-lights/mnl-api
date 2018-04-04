@@ -98,5 +98,5 @@ workflows:
           filters:
             branches:
               only: 
-			  	- /master/
-				- /master--ci-cd/
+                - /master/
+                - /master--ci-cd/
