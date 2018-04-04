@@ -3,6 +3,7 @@ __pycache__/
 .project/
 .vagrant/
 fixtures/
+lib/
 var/
 
 .DS_Store
