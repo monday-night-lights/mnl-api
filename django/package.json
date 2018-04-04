@@ -1,0 +1,12 @@
+{
+  "name": "mnl",
+  "version": "1.0.0",
+  "description": "MNL Hockey League API",
+  "repository": "https://github.com/monday-night-lights/mnl-api",
+  "author": "Ryan Allen, Jeremy Drager",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "skeleton-css": "^2.0.4"
+  }
+}

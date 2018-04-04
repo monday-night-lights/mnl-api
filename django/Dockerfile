@@ -1,10 +1,10 @@
-FROM python:3.6-alpine
+FROM python:3.6-alpine3.7
 
 RUN ifconfig -a || ip a l
 
 COPY requirements.txt /requirements.txt
 
-RUN apk update && apk add bash
+RUN apk update && apk add bash gnupg yarn
 RUN set -ex \
   && apk add --no-cache --virtual .build-deps \
     gcc \
@@ -31,6 +31,8 @@ RUN set -ex \
 
 WORKDIR /srv/
 COPY . .
+
+RUN yarn install
 
 EXPOSE 8000
 
