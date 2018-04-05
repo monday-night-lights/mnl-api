@@ -29,10 +29,7 @@ jobs:
           keys:
           - v1-dependencies-{{ checksum "django/requirements.txt" }}
           - v1-dependencies-
-      - save_cache:
-          paths:
-            - ./venv
-          key: v1-dependencies-{{ checksum "django/requirements.txt" }}
+
       - run:
           name: install dependencies
           command: |
@@ -40,12 +37,13 @@ jobs:
             . venv/bin/activate
             pip install -r django/requirements.txt
 
-      
-  test:  
-    working_directory: ~/mnl-api
-    docker:
-    - image: circleci/python:3.6.1
-    - image: circleci/postgres:9.6-alpine
+      - save_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-{{ checksum "django/requirements.txt" }}
+  test:
+    <<: *defaults
+    
     steps:
       - checkout
       - restore_cache:
@@ -54,7 +52,7 @@ jobs:
           key: v1-dependencies-{{ checksum "django/requirements.txt" }}
 
       - run:
-          name: run tests
+          name: Run Tests
           command: |
             . venv/bin/activate
             python django/manage.py test django
