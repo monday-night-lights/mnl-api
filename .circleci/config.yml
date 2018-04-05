@@ -29,7 +29,10 @@ jobs:
           keys:
           - v1-dependencies-{{ checksum "django/requirements.txt" }}
           - v1-dependencies-
-
+      - save_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-{{ checksum "django/requirements.txt" }}
       - run:
           name: install dependencies
           command: |
@@ -37,10 +40,7 @@ jobs:
             . venv/bin/activate
             pip install -r django/requirements.txt
 
-      - save_cache:
-          paths:
-            - ./venv
-          key: v1-dependencies-{{ checksum "django/requirements.txt" }}
+      
   test:  
     working_directory: ~/mnl-api
     docker:
