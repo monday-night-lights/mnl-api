@@ -6,16 +6,7 @@ defaults: &defaults
   working_directory: ~/mnl-api
   docker:
     - image: circleci/python:3.6.1
-      environment:
-      - SECRET_KEY: circle_secret_key
-      - POSTGRES_HOST: 127.0.0.1
-      - POSTGRES_PORT: 5432
-      - POSTGRES_DB: circle_db
-      - POSTGRES_USER: root
     - image: circleci/postgres:9.6-alpine
-      environment:
-      - POSTGRES_USER: root
-      - POSTGRES_DB: circle_db
 
 version: 2
 jobs:
@@ -42,7 +33,17 @@ jobs:
             - ./venv
           key: v1-dependencies-{{ checksum "django/requirements.txt" }}
   test:
-    <<: *defaults
+    working_directory: ~/mnl-api
+    docker:
+      - image: circleci/python:3.6.1
+        environment:
+          - SECRET_KEY: ""
+          - POSTGRES_HOST: localhost
+          - POSTGRES_PORT: 5432
+          - POSTGRES_DB: circle_test
+          - POSTGRES_USER: ubuntu
+          - POSTGRES_PASSWORD: ""
+      - image: circleci/postgres:9.6-alpine
     
     steps:
       - checkout
@@ -52,7 +53,7 @@ jobs:
           key: v1-dependencies-{{ checksum "django/requirements.txt" }}
 
       - run:
-          name: run tests
+          name: Run Tests
           command: |
             . venv/bin/activate
             python django/manage.py test django
