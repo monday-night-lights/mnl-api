@@ -52,8 +52,10 @@ jobs:
           key: v1-dependencies-{{ checksum "django/requirements.txt" }}
 
       - run:
-          name: run tests
-          command: pipenv run "python manage.py test"
+          name: Run Tests
+          command: |
+            . venv/bin/activate
+            python django/manage.py test django
       - store_test_results:
           path: test-results
       - store_artifacts:
