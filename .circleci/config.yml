@@ -53,13 +53,13 @@ jobs:
 
       - run:
           name: run tests
-          command: |
-            vagrant ssh
-            vagrant@contrib-jessie:/src$ docker-compose exec django /venv/bin/python manage.py test
-            
+          command: pipenv run "python manage.py test"
+      - store_test_results:
+          path: test-results
       - store_artifacts:
-          path: test-reports
-          destination: test-reports
+          path: test-results
+          destination: tr1
+
   deploy:
     <<: *defaults
     
