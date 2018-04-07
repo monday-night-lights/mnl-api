@@ -52,14 +52,16 @@ jobs:
           key: v1-dependencies-{{ checksum "django/requirements.txt" }}
 
       - run:
-          name: run tests
+          name: Run Tests
           command: |
             . venv/bin/activate
             python django/manage.py test django
-
+      - store_test_results:
+          path: test-results
       - store_artifacts:
-          path: test-reports
-          destination: test-reports
+          path: test-results
+          destination: tr1
+
   deploy:
     <<: *defaults
     
