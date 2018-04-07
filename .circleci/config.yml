@@ -54,9 +54,9 @@ jobs:
       - run:
           name: run tests
           command: |
-            . venv/bin/activate
-            python django/manage.py test django
-
+            vagrant ssh
+            vagrant@contrib-jessie:/src$ docker-compose exec django /venv/bin/python manage.py test
+            
       - store_artifacts:
           path: test-reports
           destination: test-reports
