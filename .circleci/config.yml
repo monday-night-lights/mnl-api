@@ -8,7 +8,6 @@ defaults: &defaults
     - image: circleci/python:3.6.1
     - image: circleci/postgres:9.6-alpine
       environment:
-      - SECRET_KEY: dev_secret_key
       - ALLOWED_HOSTS: 172.30.0.10
       - HOST: django
       - DEBUG: True
