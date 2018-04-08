@@ -11,7 +11,7 @@ defaults: &defaults
       - ALLOWED_HOSTS: 172.30.0.10
       - HOST: django
       - DEBUG: True
-      - POSTGRES_HOST: postgres
+      - POSTGRES_HOST: localhost
       - POSTGRES_PORT: 5432
       - POSTGRES_DB: mnl_db
       - POSTGRES_USER: mnl_db_user
