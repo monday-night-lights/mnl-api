@@ -1,14 +1,19 @@
-import logging
 import os
 import sys
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+PROJECT_NAME = os.getenv('PROJECT_NAME', 'MNL').title()
 SECRET_KEY = os.getenv('SECRET_KEY')
+DEBUG = os.getenv('DEBUG') in [True, 'True', 'true']
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 HOST = os.getenv('HOST')
-DEBUG = os.getenv('DEBUG')
 TESTING = 'test' in sys.argv
+
+ADMIN = [
+    ('Ryan Allen', 'allenryan14@gmail.com'),
+    ('Jeremy Drager', 'jdrager2@gmail.com'),
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -63,8 +68,8 @@ WSGI_APPLICATION = 'main.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'HOST': os.getenv('POSTGRES_HOST'),
-        'PORT': os.getenv('POSTGRES_PORT'),
+        'HOST': os.getenv('POSTGRES_HOST', ''),
+        'PORT': os.getenv('POSTGRES_PORT', ''),
         'NAME': os.getenv('POSTGRES_DB'),
         'USER': os.getenv('POSTGRES_USER'),
         'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
@@ -79,8 +84,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',},
 ]
 
-LOGIN_REDIRECT_URL = '/api'
+LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = LOGIN_REDIRECT_URL
+LOGIN_URL = '/login'
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
@@ -89,26 +95,14 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'main/static/'),
-)
+STATIC_ROOT = '/var/static'
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'main/static/'),)
 
-if DEBUG:
-    LOGGING = {
-        'version': 1,
-        'disable_existing_loggers': False,
-        'handlers': {
-            'console': {
-                'class': 'logging.StreamHandler',
-            },
-        },
-        'loggers': {
-            'django': {
-                'handlers': ['console'],
-                'level': 'INFO',
-            },
-        },
-    }
-if TESTING:
-    logging.disable(logging.CRITICAL)
+MAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' if DEBUG else \
+                'django_smtp_ssl.SSLEmailBackend'
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'noreply@{host}'.format(host=EMAIL_HOST)

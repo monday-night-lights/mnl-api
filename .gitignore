@@ -1,18 +1,18 @@
 __pycache__/
 .idea/
 .project/
+.pydevproject/
 .vagrant/
-fixtures/
 lib/
-var/
+node_modules/
 
 .DS_Store
+.vscode
 *.orig
 *.pyc
+*.sqlite3
 *#*
 *~
 
 *.env
-!dev.env
-
-.vscode
+!template.env
