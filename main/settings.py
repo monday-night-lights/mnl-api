@@ -10,7 +10,7 @@ ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 HOST = os.getenv('HOST')
 TESTING = 'test' in sys.argv
 
-ADMIN = [
+ADMINS = [
     ('Ryan Allen', 'allenryan14@gmail.com'),
     ('Jeremy Drager', 'jdrager2@gmail.com'),
 ]
@@ -86,7 +86,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = LOGIN_REDIRECT_URL
-LOGIN_URL = '/login'
+# LOGIN_URL = '/login'
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
