@@ -5,7 +5,7 @@
 defaults: &defaults
   working_directory: ~/mnl-api
   docker:
-    - image: circleci/python:3.6.1
+    - image: circleci/python:3.6.5
       environment:
       - SECRET_KEY: circle_secret_key
       - ALLOWED_HOSTS: 172.30.0.10
@@ -17,7 +17,7 @@ defaults: &defaults
       - POSTGRES_USER: mnl_db_user
       - POSTGRES_PASSWORD: mnl_db_password
     - image: circleci/postgres:9.6-alpine
-      environment: 
+      environment:
       - SECRET_KEY: circle_secret_key
       - ALLOWED_HOSTS: 172.30.0.10
       - HOST: django
@@ -38,7 +38,7 @@ jobs:
 
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "django/requirements.txt" }}
+          - v1-dependencies-{{ checksum "requirements.txt" }}
           - v1-dependencies-
 
       - run:
@@ -46,12 +46,12 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            pip install -r django/requirements.txt
+            pip install -r requirements.txt
       - run:
           name: Run Tests
           command: |
             . venv/bin/activate
-            python django/manage.py test django
+            python manage.py test
       - store_test_results:
           path: test-results
       - store_artifacts:
@@ -60,7 +60,7 @@ jobs:
 
   deploy:
     <<: *defaults
-    
+
     steps:
       - checkout:
           path: ~/mnl-api/
@@ -73,25 +73,23 @@ jobs:
             sudo pip install awscli --upgrade
       - run:
           name: Set Environment
-          working_directory: django
           command: |
             eb use mnl-api
             eb init
             eb config
       - run:
           name: Deploying
-          working_directory: django
           command: eb deploy mnl-api
 workflows:
   version: 2
   build_and_deploy:
     jobs:
-      - build 
+      - build
       - deploy:
           requires:
             - build
           filters:
             branches:
-              only: 
+              only:
                 - /master/
                 - /master--ci-cd/

@@ -1,0 +1,20 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+appdirs = "==1.4.3"
+django-phonenumber-field = "==2.0.0"
+djangorestframework = "==3.7.7"
+gunicorn = "==19.7.1"
+"psycopg2" = "==2.7.3.2"
+pyparsing = "==2.2.0"
+pytz = "==2017.3"
+six = "==1.11.0"
+Django = "==2.0"
+
+[dev-packages]
+
+[requires]
+python_version = "3.6"
