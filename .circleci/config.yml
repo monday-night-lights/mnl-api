@@ -76,7 +76,6 @@ jobs:
           command: |
             eb use mnl-api
             eb init
-            eb config
       - run:
           name: Deploying
           command: eb deploy mnl-api
