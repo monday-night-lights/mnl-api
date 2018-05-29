@@ -73,9 +73,7 @@ jobs:
             sudo pip install awscli --upgrade
       - run:
           name: Set Environment
-          command: |
-            eb use mnl-api
-            eb init
+          command: eb use mnl-api
       - run:
           name: Deploying
           command: eb deploy mnl-api
@@ -91,4 +89,4 @@ workflows:
             branches:
               only:
                 - /master/
-                - /master--ci-cd/
+                - /ci-cd/
