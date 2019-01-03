@@ -1,0 +1,13 @@
+* text=auto
+
+.bashrc text eol=lf
+*.css text eol=lf
+*.env text eol=lf
+*.html text eol=lf
+*.js text eol=lf
+*.sh text eol=lf
+*.txt text eol=lf
+*.yml text eol=lf
+
+*.jpg binary
+*.png binary

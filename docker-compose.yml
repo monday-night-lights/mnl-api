@@ -1,0 +1,40 @@
+version: '3'
+services:
+  postgres:
+    container_name: mnl_postgres
+    image: postgres:11-alpine
+    restart: always
+    env_file: .env
+    volumes:
+      - /var/lib/postgresql/data
+    ports:
+      - '5432'
+
+  nginx:
+    container_name: mnl_nginx
+    build: ./nginx
+    restart: always
+    ports:
+      - '80:80'
+      - '443:443'
+    links:
+      - django
+    volumes:
+      - ./nginx/try_files:/var/www
+      - django_static_vol:/var/static
+
+  django:
+    container_name: mnl_django
+    build: ./django
+    restart: always
+    env_file: .env
+    expose:
+      - '8000'
+    links:
+      - postgres
+    volumes:
+      - ./django:/srv/mnl
+      - django_static_vol:/srv/mnl/.static
+
+volumes:
+  django_static_vol:

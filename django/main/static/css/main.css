@@ -1,0 +1,82 @@
+@font-face {
+  font-family: 'Bebas Neue';
+  src: url('/static/fonts/Bebas-Neue.otf') format('opentype');
+}
+@font-face {
+  font-family: 'Bebas Neue';
+  src: url('/static/fonts/Bebas-Neue.otf') format('opentype');
+  font-weight: bold;
+}
+@font-face {
+  font-family: 'Metropolis';
+  src: url('/static/fonts/Metropolis.otf') format('opentype');
+}
+@font-face {
+  font-family: 'Metropolis';
+  src: url('/static/fonts/Metropolis.otf') format('opentype');
+  font-weight: bold;
+}
+
+/*
+MNL Colors
+
+Golden Seals
+#FBB838
+#149471
+
+Mighty Ducks
+#006A65
+#FDB827
+#51334B
+
+Americans
+#E03A3E
+#0060A9
+
+North Stars
+#108349
+#FBB838
+
+Nordiques
+#127DB8
+#E11939
+
+Whalers
+#0E7B22
+#13207A
+#C8CFC8
+
+*/
+
+body {
+  padding: 1rem 0;
+  font-family: "Metropolis", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Bebas Neue", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+nav {
+  text-align: right;
+  font-size: 1.75rem;
+}
+
+nav a {
+  margin: 0 .5rem;
+}
+
+header {
+  text-align: center;
+}
+
+a, a:hover {
+  color: #13207A;
+  text-decoration: none;
+}
+
+.group {
+  content: "";
+  display: table;
+  clear: both;
+}

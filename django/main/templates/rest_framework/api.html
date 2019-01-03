@@ -1,0 +1,12 @@
+{% extends "rest_framework/base.html" %}
+
+{% block title %}
+{% if name %}{{ name }} |{% endif %}
+MNL API
+{% endblock title %}
+
+{% block branding %}
+<a class='navbar-brand' rel="nofollow" href='{% url 'api-home' %}'>
+    MNL API
+</a>
+{% endblock branding %}
