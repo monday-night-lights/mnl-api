@@ -9,7 +9,7 @@ The Monday Night Lights Hockey League API built for managing Teams, Players, Sea
 This application can be run using Docker. If you cannot install Docker, a
 Vagrantfile is provided for provisioning a Debian virtual machine as well.
 
-First, clone this repository and copy the environment variables template to `.env`.
+To get started, clone the repository. Then make a copy of `template.env` and rename it `.env`.
 
     $ git clone git@github.com/mnlhl:mnl.git
     $ cd mnl
@@ -63,7 +63,7 @@ by clicking "Advanced" and adding an exception for this certificate.
 - [debian/contrib-stretch64](https://app.vagrantup.com/debian/boxes/contrib-stretch64)
   virtual box (`contrib-*` boxes include the `vboxfs` kernel module for shared folders)
 - [Python 3.7](https://www.python.org/)
-- [PEP 8 Python Style Guide](https://www.python.org/dev/peps/pep-0008/#introduction).
+- [PEP 8 Python Style Guide](https://www.python.org/dev/peps/pep-0008/#introduction)
 - [Pipenv](https://pipenv.readthedocs.io/en/latest/)
 - [Django](https://djangoproject.com/)
 - [Django Rest Framework](https://www.django-rest-framework.org/)
