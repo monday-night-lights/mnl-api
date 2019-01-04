@@ -36,8 +36,8 @@ class Season(models.Model):
 #
 # class SeasonSubstitute(SeasonPlayer):
 #     positions = ChoiceArrayField(models.CharField(max_length=2, choices=POSITION_CHOICES))
-#
-#
+
+
 class Team(models.Model):
     '''Team attributes that carry over season to season'''
     name = models.CharField(max_length=20, unique=True)
@@ -46,8 +46,11 @@ class Team(models.Model):
     color_2 = models.CharField(max_length=30, help_text='CSS color value', blank=True)
     color_3 = models.CharField(max_length=30, help_text='CSS color value', blank=True)
     # goal_horn = models.FileField(upload_to=goal_horn_upload_to)
-#
-#
+
+    def __str__(self):
+        return self.name
+
+
 # class SeasonTeam (models.Model):
 #     '''Team attributes that change season to season'''
 #     season = models.ForeignKey(Season, on_delete=models.PROTECT, related_name='teams')
