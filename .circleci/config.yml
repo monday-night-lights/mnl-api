@@ -1,7 +1,6 @@
 version: 2
 jobs:
   build:  
-    working_directory: ~/mnl-api
     docker:
       - image: circleci/python:3.6.4 
         environment:
@@ -28,7 +27,7 @@ jobs:
             - "/usr/local/lib/python3.6/site-packages"
       - run:
           command: |
-            pipenv run python manage.py test
+            pipenv run python django/manage.py test
       - store_test_results:
           path: test-results
       - store_artifacts:
