@@ -13,7 +13,7 @@ RUN set -ex \
     postgresql-dev \
     postgresql-client \
     python3-dev \
-    ;
+;
 
 WORKDIR /srv/mnl
 COPY Pipfile .
