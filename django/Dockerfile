@@ -1,4 +1,4 @@
-FROM python:3.7.1-alpine
+FROM python:3.7.2-alpine
 ENV PYTHONUNBUFFERED 1
 
 RUN apk update && apk add bash
