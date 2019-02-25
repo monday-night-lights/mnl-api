@@ -25,6 +25,20 @@ jobs:
             - ".venv"
             - "/usr/local/bin"
             - "/usr/local/lib/python3.6/site-packages"
+      - persist_to_workspace:
+          root: .
+          paths:
+            - docker-image
+  test:
+    docker:
+      - image: circleci/python:3.6.4 
+        environment:
+          DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
+      - image: circleci/postgres:9.6.2 
+        environment:
+          POSTGRES_USER: root
+          POSTGRES_DB: circle_test
+    steps:
       - run:
           command: |
             pipenv run python django/manage.py test
@@ -33,7 +47,20 @@ jobs:
       - store_artifacts:
           path: test-results
           destination: tr1
-      ##############################      
+      - persist_to_workspace:
+          root: .
+          paths:
+            - docker-image
+  dockerize:
+    docker:
+      - image: circleci/python:3.6.4 
+        environment:
+          DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
+      - image: circleci/postgres:9.6.2 
+        environment:
+          POSTGRES_USER: root
+          POSTGRES_DB: circle_test
+    steps:    
       - setup_remote_docker
       - run:
           name: Setup common environment variables
@@ -110,9 +137,27 @@ workflows:
   build-deploy:
     jobs:
       - build
-      - deploy:
+      - test:
+          requires:
+            - test
+      - dockerize:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
+      - deploy_hold:
+          type: approval
           requires:
             - build
+            - test
+            - dockerize
+          filters:
+            branches:
+              only: master
+      - deploy:
+          requires:
+            - deploy_hold
           filters:
             branches:
               only: master
