@@ -1,7 +1,7 @@
 FROM python:3.7.1-alpine
 ENV PYTHONUNBUFFERED 1
 
-RUN apk update && apk add bash
+RUN apk add --no-cache bash
 RUN set -ex \
   && apk add --no-cache \
     gcc \
