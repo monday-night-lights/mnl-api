@@ -139,7 +139,7 @@ workflows:
       - build
       - test:
           requires:
-            - test
+            - build
       - dockerize:
           requires:
             - test
