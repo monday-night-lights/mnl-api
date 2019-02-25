@@ -3,15 +3,15 @@ from django.views import View
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-# from teams.models import Team
+from seasons.models import Team
 
 
 class HomeView(View):
     template_name = 'home.html'
 
     def get(self, request, *args, **kwargs):
-        # teams = Team.objects.all().order_by('?')
-        return render(request, self.template_name, {'teams': ['teams']})
+        teams = Team.objects.all()
+        return render(request, self.template_name, {'teams': teams})
 
 
 class APIHomeView(APIView):

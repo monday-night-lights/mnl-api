@@ -1,8 +1,11 @@
+import logging
+
 from django.db import models
 # from phonenumber_field.modelfields import PhoneNumberField
 
 from .utils import clean_whitespace, geocode
-from main.logging import logger
+
+logger = logging.getLogger('django')
 
 
 class Location(models.Model):

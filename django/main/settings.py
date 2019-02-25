@@ -24,7 +24,10 @@ INSTALLED_APPS = [
 
     'rest_framework',
 
+    'games',
     'personnel',
+    'seasons',
+    'venues',
 ]
 
 MIDDLEWARE = [
