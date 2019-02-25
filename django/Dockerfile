@@ -1,4 +1,4 @@
-FROM python:3.7.1-alpine
+FROM python:3.7.2-alpine
 ENV PYTHONUNBUFFERED 1
 
 RUN apk update && apk add bash
@@ -13,7 +13,7 @@ RUN set -ex \
     postgresql-dev \
     postgresql-client \
     python3-dev \
-    ;
+;
 
 WORKDIR /srv/mnl
 COPY Pipfile .

@@ -1,0 +1,62 @@
+[
+  {
+    "model": "seasons.team",
+    "pk": 1,
+    "fields": {
+      "name": "Golden Seals",
+      "color_1": "#FBB838",
+      "color_2": "#149471",
+      "color_3": ""
+    }
+  },
+  {
+    "model": "seasons.team",
+    "pk": 2,
+    "fields": {
+      "name": "Nordiques",
+      "color_1": "#127DB8",
+      "color_2": "#E11939",
+      "color_3": ""
+    }
+  },
+  {
+    "model": "seasons.team",
+    "pk": 3,
+    "fields": {
+      "name": "North Stars",
+      "color_1": "#108349",
+      "color_2": "#FBB838",
+      "color_3": ""
+    }
+  },
+  {
+    "model": "seasons.team",
+    "pk": 4,
+    "fields": {
+      "name": "Whalers",
+      "color_1": "#0E7B22",
+      "color_2": "#13207A",
+      "color_3": "#C8CFC8"
+    }
+  },
+  {
+    "model": "seasons.team",
+    "pk": 5,
+    "fields": {
+      "name": "Americans",
+      "color_1": "#E03A3E",
+      "color_2": "#0060A9",
+      "color_3": ""
+    }
+  },
+  {
+    "model": "seasons.team",
+    "pk": 6,
+    "fields": {
+      "name": "Mighty Ducks",
+      "color_1": "#006A65",
+      "color_2": "#FDB827",
+      "color_3": "#51334B"
+    }
+  }
+]

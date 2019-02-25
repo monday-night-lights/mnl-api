@@ -2,14 +2,15 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-The Monday Night Lights Hockey League API built for managing Teams, Players, Seasons, Games, and more.
+The [Monday Night Lights Hockey League](http://mnlhl.com/) API built
+for managing Teams, Players, Seasons, Games, and more.
 
 ## Set up
 
 This application can be run using Docker. If you cannot install Docker, a
-Vagrantfile is provided for provisioning a Debian virtual machine as well.
+Vagrantfile is provided for provisioning a Debian virtual machine.
 
-First, clone this repository and copy the environment variables template to `.env`.
+To get started, clone the repository. Then make a copy of `template.env` and rename it `.env`.
 
     $ git clone git@github.com/mnlhl:mnl.git
     $ cd mnl
@@ -25,6 +26,15 @@ First, clone this repository and copy the environment variables template to `.en
 
 1. View the running application in a browser at https://localhost
 
+When you need to run a command inside a container, use:
+
+    docker-compose exec container_name <command>
+
+Or you can run a shell to enter the container and run commands inside
+
+    docker-compose exec container_name /bin/sh
+    # <command>
+
 ### Running with Vagrant
 
 1. Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) and
@@ -39,13 +49,29 @@ First, clone this repository and copy the environment variables template to `.en
 
 ### Running Tests
 
-The unit tests can be run with `docker-compose exec django python manage.py test` (if you are using
-Vagrant you will need to ssh into the VM first with `vagrant ssh`).
+The unit tests can be run with:
+
+    python manage.py test
 
 ### Admin users
 
-An admin user can be set up for development by running
-`docker-compose exec django python manage.py createsuperuser`.
+An admin user can be added for development by running:
+
+    python manage.py createsuperuser
+
+### Python Requirements
+
+We are using Pipenv to manage Python dependencies. This means there is a
+`Pipfile` instead of the traditional `requirements.txt` file. To install
+or update Python packages, run:
+
+    pipenv install <package_name>
+    pipenv update
+
+    pipenv install --dev --system
+
+This will update `Pipfile.lock` with the new version numbers, and then
+install the packages globally within the `django` container.
 
 ### SSL in development
 
@@ -57,15 +83,23 @@ by clicking "Advanced" and adding an exception for this certificate.
 
 ### Helpful Links
 
+#### Dev/Ops
+
 - [Docker](https://docker.com/)
 - [Docker Compose](https://docs.docker.com/compose/)
 - [Vagrant](https://www.vagrantup.com/)
 - [debian/contrib-stretch64](https://app.vagrantup.com/debian/boxes/contrib-stretch64)
   virtual box (`contrib-*` boxes include the `vboxfs` kernel module for shared folders)
+- [nginx](https://nginx.org/en/)
+
+#### Database
+
+- [PostgreSQL](https://www.postgresql.org/)
+
+#### Python & Django
+
 - [Python 3.7](https://www.python.org/)
-- [PEP 8 Python Style Guide](https://www.python.org/dev/peps/pep-0008/#introduction).
+- [PEP 8 Python Style Guide](https://www.python.org/dev/peps/pep-0008/#introduction)
 - [Pipenv](https://pipenv.readthedocs.io/en/latest/)
 - [Django](https://djangoproject.com/)
 - [Django Rest Framework](https://www.django-rest-framework.org/)
-- [PostgreSQL](https://www.postgresql.org/)
-- [nginx](https://nginx.org/en/)
