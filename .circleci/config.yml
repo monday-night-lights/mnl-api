@@ -1,3 +1,31 @@
+#############################################################
+# Shared jobs and configuration
+#############################################################
+
+restore_python_cache: &restore_python_cache
+  restore_cache: 
+          key: deps9-{{ .Branch }}-{{ checksum "django/Pipfile.lock" }}
+
+pipenv_install: &pipenv_install
+  run:
+    name: Pipenv Install
+    command: |
+      sudo pip install pipenv
+      pipenv install
+
+save_python_cache: &save_python_cache
+  save_cache:
+    key: deps9-{{ .Branch }}-{{ checksum "django/Pipfile.lock" }}
+    paths:
+      - ".venv"
+      - "/usr/local/bin"
+      - "/usr/local/lib/python3.6/site-packages"
+
+persist_everything: &persist_everything
+  persist_to_workspace:
+    root: .
+    paths: .
+
 version: 2
 jobs:
   build:  
@@ -13,21 +41,10 @@ jobs:
       - checkout 
       - run: sudo chown -R circleci:circleci /usr/local/bin
       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
-      - restore_cache: 
-          key: deps9-{{ .Branch }}-{{ checksum "django/Pipfile.lock" }}
-      - run:
-          command: |
-            sudo pip install pipenv
-            pipenv install
-      - save_cache:
-          key: deps9-{{ .Branch }}-{{ checksum "django/Pipfile.lock" }}
-          paths:
-            - ".venv"
-            - "/usr/local/bin"
-            - "/usr/local/lib/python3.6/site-packages"
-      - persist_to_workspace:
-          root: .
-          paths: .
+      - *restore_python_cache
+      - *pipenv_install
+      - *save_python_cache
+      - *persist_everything
   test:
     docker:
       - image: circleci/python:3.6.4 
@@ -40,6 +57,9 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - *restore_python_cache
+      - *pipenv_install
+      - *save_python_cache
       - run:
           command: |
             pipenv run python django/manage.py test
@@ -48,9 +68,7 @@ jobs:
       - store_artifacts:
           path: test-results
           destination: tr1
-      - persist_to_workspace:
-          root: .
-          paths: .
+      - *persist_everything
   dockerize:
     docker:
       - image: circleci/python:3.6.4 
@@ -61,6 +79,7 @@ jobs:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
     steps:
+      - checkout
       - attach_workspace:
         at: .
       - setup_remote_docker
@@ -69,6 +88,9 @@ jobs:
           command: |
             echo 'export ECR_REPOSITORY_NAME="${AWS_RESOURCE_NAME_PREFIX}"' >> $BASH_ENV
             echo 'export FULL_IMAGE_NAME="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${ECR_REPOSITORY_NAME}:${CIRCLE_SHA1}"' >> $BASH_ENV
+      - *restore_python_cache
+      - *pipenv_install
+      - *save_python_cache
       - run:
           name: Build image
           command: |
