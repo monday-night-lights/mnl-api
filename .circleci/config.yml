@@ -44,6 +44,9 @@ jobs:
       - *restore_python_cache
       - *pipenv_install
       - *save_python_cache
+      - run:
+          name: Build Container
+          command: docker-compose up --build -d
       - *persist_everything
   test:
     docker:
@@ -59,8 +62,8 @@ jobs:
           at: .
       - *pipenv_install
       - run:
-          command: |
-            pipenv run python manage.py test
+          name: Run Tests
+          command: pipenv run python django/manage.py test
       - store_test_results:
           path: test-results
       - store_artifacts:
