@@ -57,9 +57,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - *restore_python_cache
       - *pipenv_install
-      - *save_python_cache
       - run:
           command: |
             pipenv run python django/manage.py test
@@ -88,9 +86,7 @@ jobs:
           command: |
             echo 'export ECR_REPOSITORY_NAME="${AWS_RESOURCE_NAME_PREFIX}"' >> $BASH_ENV
             echo 'export FULL_IMAGE_NAME="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${ECR_REPOSITORY_NAME}:${CIRCLE_SHA1}"' >> $BASH_ENV
-      - *restore_python_cache
       - *pipenv_install
-      - *save_python_cache
       - run:
           name: Build image
           command: |
