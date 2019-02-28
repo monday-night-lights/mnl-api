@@ -33,6 +33,22 @@ jobs:
       - image: circleci/python:3.6.4 
         environment:
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
+          SECRET_KEY: ${SECRET_KEY}
+          EMAIL_HOST: localhost
+          EMAIL_PORT: "25"
+          EMAIL_HOST_USER: ""
+          EMAIL_HOST_PASSWORD: ""
+          EMAIL_USE_TLS: "False"
+          DEBUG: "True"
+          ALLOWED_HOSTS: 172.16.0.2,localhost
+
+          POSTGRES_HOST: postgres
+          POSTGRES_PORT: "5432"
+          POSTGRES_DB: mnl_db
+          POSTGRES_USER: mnl_db_user
+          POSTGRES_PASSWORD: mnl_db_password
+
+          LOG_DIR: 'var/log/django'
       - image: circleci/postgres:9.6.2 
         environment:
           POSTGRES_USER: root
