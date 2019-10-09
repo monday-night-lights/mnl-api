@@ -2,10 +2,8 @@
 
 {% block content %}
 {% if teams %}
-<ul>
   {% for team in teams %}
-  <li>{{ team.name }}</li>
+  <p>{{ team.name }}</p>
   {% endfor %}
-</ul>
 {% endif %}
 {% endblock content %}
