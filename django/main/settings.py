@@ -12,6 +12,7 @@ TESTING = 'test' in sys.argv
 
 ADMINS = [
     ('Ryan Allen', 'allenryan14@gmail.com'),
+    ('Kevan Swanberg', 'kevswanberg@gmail.com'),
     ('Jeremy Drager', 'jdrager22@gmail.com'),
 ]
 
@@ -92,9 +93,21 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.getenv('STATIC_ROOT') or os.path.join(BASE_DIR, '.static')
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'main/static/'),)
+STATICFILES_STORAGE = os.getenv('STATICFILES_STORAGE') or \
+                      'django.contrib.staticfiles.storage.StaticFilesStorage'
+STATIC_URL = os.getenv('STATIC_URL') or '/static/'
+STATIC_ROOT = os.getenv('STATIC_ROOT') or os.path.join(BASE_DIR, '.static')
+
+DEFAULT_FILE_STORAGE = os.getenv('DEFAULT_FILE_STORAGE') or \
+                       'django.core.files.storage.FileSystemStorage'
+MEDIA_URL = os.getenv('MEDIA_URL') or '/media/'
+MEDIA_ROOT = os.getenv('MEDIA_ROOT') or os.path.join(BASE_DIR, '.media')
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' if DEBUG else \
                 'django.core.mail.backends.smtp.EmailBackend'
@@ -103,7 +116,5 @@ EMAIL_PORT = os.getenv('EMAIL_PORT')
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS') in [True, 'True', 'true']
-DEFAULT_FROM_EMAIL = 'noreply@{host}'.format(host=EMAIL_HOST)
+DEFAULT_FROM_EMAIL = f'noreply@{EMAIL_HOST}'
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
-
-LOG_DIR = os.getenv('LOG_DIR') or '/var/log/django'
