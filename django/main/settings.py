@@ -95,6 +95,15 @@ USE_L10N = True
 USE_TZ = True
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'main/static/'),)
+STATICFILES_STORAGE = os.getenv('STATICFILES_STORAGE') or \
+                      'django.contrib.staticfiles.storage.StaticFilesStorage'
+STATIC_URL = os.getenv('STATIC_URL') or '/static/'
+STATIC_ROOT = os.getenv('STATIC_ROOT') or os.path.join(BASE_DIR, '.static')
+
+DEFAULT_FILE_STORAGE = os.getenv('DEFAULT_FILE_STORAGE') or \
+                       'django.core.files.storage.FileSystemStorage'
+MEDIA_URL = os.getenv('MEDIA_URL') or '/media/'
+MEDIA_ROOT = os.getenv('MEDIA_ROOT') or os.path.join(BASE_DIR, '.media')
 
 STATIC_DIRNAME = 'static'
 STATIC_URL = f'/{STATIC_DIRNAME}/'
