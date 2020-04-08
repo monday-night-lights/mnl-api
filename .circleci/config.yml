@@ -43,7 +43,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "requirements.txt" }}
+          - v1-dependencies-{{ checksum "Pipfile.lock" }}
           - v1-dependencies-
       - run:
           name: Install Dependencies
