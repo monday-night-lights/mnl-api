@@ -43,14 +43,14 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "Pipfile.lock" }}
+          - v1-dependencies-{{ checksum "django/Pipfile.lock" }}
           - v1-dependencies-
       - run:
           name: Install Dependencies
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            pip install -r requirements.txt
+            pip install -r django/Pipfile.lock
       - run:
           name: Run Tests
           command: |
