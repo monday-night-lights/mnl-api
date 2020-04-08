@@ -50,7 +50,7 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            pip install -r django/Pipfile.lock
+            pip install -r django/Pipfile
       - run:
           name: Run Tests
           command: |
