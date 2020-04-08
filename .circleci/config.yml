@@ -55,7 +55,8 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            python django/manage.py test
+            cd django
+            python manage.py test
       - store_test_results:
           path: test-results
       - store_artifacts:
