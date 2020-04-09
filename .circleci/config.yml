@@ -3,9 +3,11 @@ jobs:
   build:
     working_directory: ~/mnl-api
     docker:
-      - image: circleci/python:3.8.2
+      - image: circleci/python:3.8
         environment:
           PIPENV_VENV_IN_PROJECT: true
+          PIP_CACHE_DIR: "$CIRCLE_WORKING_DIRECTORY/.cache"
+          
           SECRET_KEY: ci_secret_key
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: ''
@@ -22,25 +24,30 @@ jobs:
           POSTGRES_DB: ci_db
     steps:
       - checkout
-      - run: sudo chown -R circleci:circleci /usr/local/bin
-      - run: sudo chown -R circleci:circleci /usr/local/lib/python3.8/site-packages
+      - run: cd django
+#       - run: sudo chown -R circleci:circleci /usr/local/bin
+#       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.8/site-packages
+
       - restore_cache:
-          key: v3.8.2-{{ .Branch }}-{{ checksum "django/Pipfile.lock" }}
+          key: v3.8.2-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run:
           command: |
-            sudo pip install pipenv
-            pipenv install
-            pipenv install django
+            sudo pip install --user pipenv
+            pipenv --version
+            pipenv install --dev
+            pipenv --venv
+            pipenv --graph
       - save_cache:
-          key: v3.8.2-{{ .Branch }}-{{ checksum "django/Pipfile.lock" }}
+          key: v3.8.2-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
           paths:
-            - '.venv'
-            - '/usr/local/bin'
-            - '/usr/local/lib/python3.8/site-packages'
+            - '.venv'     
+            - '.cache'
+#             - '/usr/local/bin'
+#             - '/usr/local/lib/python3.8/site-packages'
       - run:
           command: |
             echo ${SECRET_KEY}
-            pipenv run python django/manage.py test
+            pipenv run python manage.py test
       - store_test_results:
           path: test-results
       - store_artifacts:
