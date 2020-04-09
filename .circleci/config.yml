@@ -36,7 +36,7 @@ jobs:
             pipenv --version
             pipenv install --dev
             pipenv --venv
-            pipenv --graph
+            pipenv graph
       - save_cache:
           key: v3.8.2-{{ .Branch }}-{{ checksum "django/Pipfile.lock" }}
           paths:
