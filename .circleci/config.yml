@@ -1,0 +1,48 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/mnl-api
+    docker:
+      - image: circleci/python:3.8
+        environment:
+          PIPENV_VENV_IN_PROJECT: true
+          PIP_CACHE_DIR: "$CIRCLE_WORKING_DIRECTORY/django/.cache"
+          SECRET_KEY: ci_secret_key
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: pw
+          POSTGRES_HOST: localhost
+          POSTGRES_PORT: 5432
+          POSTGRES_DB: ci_db
+      - image: circleci/postgres:12.2
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: pw
+          POSTGRES_DB: ci_db
+    steps:
+      - checkout
+      - run: sudo chown -R circleci:circleci /usr/local/bin
+      - restore_cache:
+          key: mnl-api-{{ .Branch }}-{{ checksum "django/Pipfile.lock" }}
+      - run:
+          command: |
+            cd django
+            sudo pip install --user pipenv
+            pipenv --version
+            pipenv install --dev
+            pipenv --venv
+            pipenv graph
+      - save_cache:
+          key: mnl-api-{{ .Branch }}-{{ checksum "django/Pipfile.lock" }}
+          paths:
+            - '/usr/local/bin'
+            - '$CIRCLE_WORKING_DIRECTORY/django/.venv'     
+            - '$CIRCLE_WORKING_DIRECTORY/django/.cache'
+      - run:
+          command: |
+            cd django
+            pipenv run python manage.py test
+      - store_test_results:
+          path: test-results
+      - store_artifacts:
+          path: test-results
+          destination: tr1
