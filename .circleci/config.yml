@@ -24,11 +24,11 @@ jobs:
           POSTGRES_DB: ci_db
     steps:
       - checkout
-#       - run: sudo chown -R circleci:circleci /usr/local/bin
+      - run: sudo chown -R circleci:circleci /usr/local/bin
 #       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.8/site-packages
 
-      - restore_cache:
-          key: v3.8.2-{{ .Branch }}-{{ checksum "django/Pipfile.lock" }}
+#       - restore_cache:
+#           key: v3.8.2-{{ .Branch }}-{{ checksum "django/Pipfile.lock" }}
       - run:
           command: |
             cd django
