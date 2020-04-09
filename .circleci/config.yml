@@ -29,6 +29,7 @@ jobs:
             - '/usr/local/lib/python3.6/site-packages'
       - run:
           command: |
+            cd django
             pipenv run python manage.py test
       - store_test_results:
           path: test-results
