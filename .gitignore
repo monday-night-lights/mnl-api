@@ -5,6 +5,7 @@ __pycache__/
 .static/
 .vagrant/
 .venv/
+.vscode/
 
 .DS_Store
 .env
