@@ -95,15 +95,27 @@ USE_L10N = True
 USE_TZ = True
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'main/static/'),)
-STATICFILES_STORAGE = os.getenv('STATICFILES_STORAGE') or \
-                      'django.contrib.staticfiles.storage.StaticFilesStorage'
-STATIC_URL = os.getenv('STATIC_URL') or '/static/'
-STATIC_ROOT = os.getenv('STATIC_ROOT') or os.path.join(BASE_DIR, '.static')
 
-DEFAULT_FILE_STORAGE = os.getenv('DEFAULT_FILE_STORAGE') or \
-                       'django.core.files.storage.FileSystemStorage'
-MEDIA_URL = os.getenv('MEDIA_URL') or '/media/'
-MEDIA_ROOT = os.getenv('MEDIA_ROOT') or os.path.join(BASE_DIR, '.media')
+STATIC_DIRNAME = 'static'
+STATIC_URL = f'/{STATIC_DIRNAME}/'
+STATIC_ROOT = os.path.join(BASE_DIR, f'.{STATIC_DIRNAME}')
+
+MEDIA_DIRNAME = 'media'
+MEDIA_URL = f'/{MEDIA_DIRNAME}/'
+MEDIA_ROOT = os.path.join(BASE_DIR, f'.{MEDIA_DIRNAME}')
+
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+if AWS_STORAGE_BUCKET_NAME:
+    AWS_DEFAULT_ACL = None
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_DIRNAME}/'
+    STATICFILES_STORAGE = 'main.storages.StaticStorage'
+
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIA_DIRNAME}/'
+    DEFAULT_FILE_STORAGE = 'main.storages.MediaStorage'
 
 STATIC_DIRNAME = 'static'
 STATIC_URL = f'/{STATIC_DIRNAME}/'
