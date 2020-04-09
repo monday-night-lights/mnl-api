@@ -6,8 +6,7 @@ jobs:
       - image: circleci/python:3.8
         environment:
           PIPENV_VENV_IN_PROJECT: true
-          PIP_CACHE_DIR: "$CIRCLE_WORKING_DIRECTORY/.cache"
-          
+          PIP_CACHE_DIR: "$CIRCLE_WORKING_DIRECTORY/django/.cache"
           SECRET_KEY: ci_secret_key
           POSTGRES_USER: postgres
           POSTGRES_HOST: localhost
@@ -21,10 +20,8 @@ jobs:
     steps:
       - checkout
       - run: sudo chown -R circleci:circleci /usr/local/bin
-#       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.8/site-packages
-
-#       - restore_cache:
-#           key: v3.8.2-{{ .Branch }}-{{ checksum "django/Pipfile.lock" }}
+      - restore_cache:
+          key: v3.8.2-{{ .Branch }}-{{ checksum "django/Pipfile.lock" }}
       - run:
           command: |
             cd django
@@ -36,10 +33,9 @@ jobs:
       - save_cache:
           key: v3.8.2-{{ .Branch }}-{{ checksum "django/Pipfile.lock" }}
           paths:
-            - '.venv'     
-            - '.cache'
-#             - '/usr/local/bin'
-#             - '/usr/local/lib/python3.8/site-packages'
+            - '/usr/local/bin'
+            - '$CIRCLE_WORKING_DIRECTORY/django/.venv'     
+            - '$CIRCLE_WORKING_DIRECTORY/django/.cache'
       - run:
           command: |
             cd django
