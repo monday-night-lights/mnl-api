@@ -1,56 +1,35 @@
-# Python CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-python/ for more details
-
-workflows:
-  version: 2
-  build_and_deploy:
-    jobs:
-      - build
-
-defaults: &defaults
-  working_directory: ~/mnl-api
-  docker:
-    - image: circleci/python:3.6.5
-      environment:
-      - SECRET_KEY: circle_secret_key
-      - ALLOWED_HOSTS: 172.30.0.10
-      - HOST: django
-      - DEBUG: True
-      - POSTGRES_HOST: 127.0.0.1
-      - POSTGRES_PORT: 5432
-      - POSTGRES_DB: mnl_db
-      - POSTGRES_USER: mnl_db_user
-      - POSTGRES_PASSWORD: mnl_db_password
-
 version: 2
 jobs:
   build:
-    <<: *defaults
-
+    working_directory: ~/mnl-api
+    docker:
+      - image: circleci/python:3.6.4
+        environment:
+          PIPENV_VENV_IN_PROJECT: true
+          DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
+      - image: circleci/postgres:9.6.2
+        environment:
+          POSTGRES_USER: root
+          POSTGRES_DB: circle_test
     steps:
       - checkout
       - run: sudo chown -R circleci:circleci /usr/local/bin
       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
       - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "django/Pipfile.lock" }}
+          key: deps10-{{ .Branch }}-{{ checksum "django/Pipfile.lock" }}
       - run:
-          name: Install Dependencies
           command: |
             sudo pip install pipenv
             pipenv install
       - save_cache:
-          key: v1-dependencies-{{ checksum "django/Pipfile.lock" }}
+          key: deps10-{{ .Branch }}-{{ checksum "django/Pipfile.lock" }}
           paths:
-            - ".venv"
-            - "/usr/local/bin"
-            - "/usr/local/lib/python3.6/site-packages"
+            - '.venv'
+            - '/usr/local/bin'
+            - '/usr/local/lib/python3.6/site-packages'
       - run:
-          name: Run Tests
           command: |
-            cd django
-            python manage.py test
+            pipenv run python manage.py test
       - store_test_results:
           path: test-results
       - store_artifacts:
