@@ -21,7 +21,7 @@ jobs:
       - checkout
       - run: sudo chown -R circleci:circleci /usr/local/bin
       - restore_cache:
-          key: v3.8.2-{{ .Branch }}-{{ checksum "django/Pipfile.lock" }}
+          key: mnl-api-{{ .Branch }}-{{ checksum "django/Pipfile.lock" }}
       - run:
           command: |
             cd django
@@ -31,7 +31,7 @@ jobs:
             pipenv --venv
             pipenv graph
       - save_cache:
-          key: v3.8.2-{{ .Branch }}-{{ checksum "django/Pipfile.lock" }}
+          key: mnl-api-{{ .Branch }}-{{ checksum "django/Pipfile.lock" }}
           paths:
             - '/usr/local/bin'
             - '$CIRCLE_WORKING_DIRECTORY/django/.venv'     
