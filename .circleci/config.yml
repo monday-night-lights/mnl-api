@@ -21,6 +21,7 @@ jobs:
           command: |
             sudo pip install pipenv
             pipenv install
+            pipenv install django
       - save_cache:
           key: deps10-{{ .Branch }}-{{ checksum "django/Pipfile.lock" }}
           paths:
