@@ -3,7 +3,12 @@
 {% block content %}
 {% if teams %}
   {% for team in teams %}
-  <p>{{ team.name }}</p>
+  <p>
+    {{ team.name }}
+    {% if team.goal_horn %}
+    &ndash; <a href="{{ team.goal_horn.url }}">Goal Horn</a>
+    {% endif %}
+  </p>
   {% endfor %}
 {% endif %}
 {% endblock content %}

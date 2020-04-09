@@ -81,6 +81,14 @@ by clicking "Advanced" and adding an exception for this certificate.
 
 ![Firefox Insecure Connection Warning](https://prod-cdn.sumo.mozilla.net/uploads/gallery/images/2018-07-24-17-48-12-79a9e2.png)
 
+### AWS S3 File Storage
+
+To use AWS S3 for storing static files and user uploaded media, set the AWS
+environment variables. The Django app will detect them and use the AWS storage
+backends. If `AWS_STORAGE_BUCKET_NAME` is not set, Django's default storage
+backends will be used. For more info, see
+https://testdriven.io/blog/storing-django-static-and-media-files-on-amazon-s3/.
+
 ### Helpful Links
 
 #### Dev/Ops

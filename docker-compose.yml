@@ -22,6 +22,7 @@ services:
     volumes:
       - ./nginx/try_files:/var/www
       - django_static_vol:/var/static
+      - django_media_vol:/var/media
 
   django:
     container_name: mnl_django
@@ -35,6 +36,8 @@ services:
     volumes:
       - ./django:/srv/mnl
       - django_static_vol:/srv/mnl/.static
+      - django_media_vol:/srv/mnl/.media
 
 volumes:
   django_static_vol:
+  django_media_vol:
