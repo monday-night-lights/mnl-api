@@ -1,10 +1,12 @@
 __pycache__/
 .idea/
+.media/
 .project/
 .pydevproject/
 .static/
 .vagrant/
 .venv/
+.vscode/
 
 .DS_Store
 .env
