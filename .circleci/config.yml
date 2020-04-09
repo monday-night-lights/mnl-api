@@ -9,13 +9,14 @@ jobs:
           PIP_CACHE_DIR: "$CIRCLE_WORKING_DIRECTORY/django/.cache"
           SECRET_KEY: ci_secret_key
           POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: pw
           POSTGRES_HOST: localhost
           POSTGRES_PORT: 5432
           POSTGRES_DB: ci_db
-          DATABASE_URL: 'postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOST:$POSTGRES_PORT/$POSTGRES_DB'
       - image: circleci/postgres:12.2
         environment:
           POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: pw
           POSTGRES_DB: ci_db
     steps:
       - checkout
