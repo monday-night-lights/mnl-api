@@ -1,0 +1,34 @@
+name: Django CI
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.6, 3.7, 3.8]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install Dependencies
+      run: |
+        cd django
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        sudo pip install --user pipenv
+        pipenv install --dev
+        pipenv --venv
+        pipenv graph
+    - name: Run Tests
+      run: |
+        cd django
+        python manage.py test
