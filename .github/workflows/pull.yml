@@ -23,8 +23,6 @@ jobs:
       run: |
         cd django
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        sudo pip install --user pipenv
         pipenv install --dev
         pipenv --venv
         pipenv graph
