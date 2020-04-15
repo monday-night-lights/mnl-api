@@ -31,4 +31,4 @@ jobs:
     - name: Run Tests
       run: |
         cd django
-        python manage.py test
+        pipenv run python manage.py test
