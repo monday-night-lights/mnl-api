@@ -39,7 +39,9 @@ jobs:
         pipenv --venv
         pipenv graph
     - name: Connect to PostgreSQL
-      run: cd django | ./entrypoint.sh
+      run: |
+        cd django
+        ./entrypoint.sh
     # Environment variable used by the `client.js` script to create
     # a new PostgreSQL client.
       env:
