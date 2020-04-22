@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  django:
+    env_file:
+      - .env
+
+  postgres:
+      volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
