@@ -38,10 +38,14 @@ jobs:
         pipenv install --dev
         pipenv --venv
         pipenv graph
-    - name: Connect to PostgreSQL
-      run: |
-        cd django
-        ./entrypoint.sh
+    - name: Build the docker-compose stack
+      run: docker-compose -f docker-compose.yml -f docker-compose.ci.yml up -d
+    - name: Check running containers
+      run: docker ps -a
+    - name: Check logs
+      run: docker logs backend
+    - name: Run test suite
+      run: docker exec mnl_django pytest --skip-auth
     # Environment variable used by the `client.js` script to create
     # a new PostgreSQL client.
       env:
