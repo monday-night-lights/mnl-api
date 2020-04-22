@@ -39,7 +39,7 @@ jobs:
         pipenv --venv
         pipenv graph
     - name: Build the docker-compose stack
-      run: docker-compose -f docker-compose.yml
+      run: docker-compose
     - name: Check running containers
       run: docker ps -a
     - name: Check logs
