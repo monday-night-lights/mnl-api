@@ -1,10 +1,5 @@
 #!/bin/bash
 
-while ! nc -w 1 -z $POSTGRES_HOST $POSTGRES_PORT; do
-  echo "Waiting for PostgreSQL..."
-  sleep 1
-done
-
 python manage.py check
 python manage.py collectstatic --no-input
 python manage.py migrate --no-input
