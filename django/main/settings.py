@@ -8,6 +8,8 @@ DEBUG = os.getenv('DEBUG') in [True, 'True', 'true']
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 ENVIRONMENT = os.getenv('ENVIRONMENT')
 
+CSRF_TRUSTED_ORIGINS = [f'https://{host}' for host in ALLOWED_HOSTS]
+
 TESTING = 'test' in sys.argv
 
 ADMINS = [
