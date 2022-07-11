@@ -28,7 +28,6 @@ services:
     container_name: mnl_django
     build: ./django
     restart: always
-    env_file: .env
     expose:
       - '8000'
     links:

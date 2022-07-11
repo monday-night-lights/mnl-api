@@ -1,0 +1,63 @@
+name: Pull Request - Build and Test
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.7]
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres
+        # Provide the password for postgres
+        env:
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install Dependencies
+      run: |
+        cd django
+        python -m pip install --upgrade pip
+        sudo pip install pipenv
+        pipenv --version 
+        pipenv install --dev
+        pipenv --venv
+        pipenv graph
+    - name: Build the docker-compose stack
+      run: docker-compose -f docker-compose.yml -f docker-compose.ci.yml up -d
+    - name: Check running containers
+      run: docker ps -a
+    - name: Check logs
+      run: docker logs backend
+    - name: Run test suite
+      run: docker exec mnl_django pytest --skip-auth
+    # Environment variable used by the `client.js` script to create
+    # a new PostgreSQL client.
+      env:
+        # The hostname used to communicate with the PostgreSQL service container
+        POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+        POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+        POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
+        POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+    - name: Run Tests
+      run: |
+        cd django
+        pipenv run python manage.py test
+      env: # Set the secret as an input
+        SECRET_KEY: ${{ secrets.CI_SECRET_KEY }}

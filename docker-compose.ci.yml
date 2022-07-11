@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  django:
+    environment:
+      - DATABASE_URL
+      - DJANGO_SETTINGS_MODULE
+      - SECRET_KEY
+      - PORT
