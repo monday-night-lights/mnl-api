@@ -10,7 +10,7 @@ class HomeView(View):
     template_name = 'home.html'
 
     def get(self, request, *args, **kwargs):
-        teams = Team.objects.all()
+        teams = Team.objects.filter(active=True)
         return render(request, self.template_name, {'teams': teams})
 
 

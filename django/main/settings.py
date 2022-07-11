@@ -8,6 +8,8 @@ DEBUG = os.getenv('DEBUG') in [True, 'True', 'true']
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 ENVIRONMENT = os.getenv('ENVIRONMENT')
 
+CSRF_TRUSTED_ORIGINS = [f'https://{host}' for host in ALLOWED_HOSTS]
+
 TESTING = 'test' in sys.argv
 
 ADMINS = [
@@ -95,27 +97,6 @@ USE_L10N = True
 USE_TZ = True
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'main/static/'),)
-
-STATIC_DIRNAME = 'static'
-STATIC_URL = f'/{STATIC_DIRNAME}/'
-STATIC_ROOT = os.path.join(BASE_DIR, f'.{STATIC_DIRNAME}')
-
-MEDIA_DIRNAME = 'media'
-MEDIA_URL = f'/{MEDIA_DIRNAME}/'
-MEDIA_ROOT = os.path.join(BASE_DIR, f'.{MEDIA_DIRNAME}')
-
-AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
-if AWS_STORAGE_BUCKET_NAME:
-    AWS_DEFAULT_ACL = None
-    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-
-    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_DIRNAME}/'
-    STATICFILES_STORAGE = 'main.storages.StaticStorage'
-
-    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIA_DIRNAME}/'
-    DEFAULT_FILE_STORAGE = 'main.storages.MediaStorage'
 
 STATIC_DIRNAME = 'static'
 STATIC_URL = f'/{STATIC_DIRNAME}/'

@@ -5,8 +5,8 @@
     "fields": {
       "name": "Golden Seals",
       "color_1": "#FBB838",
-      "color_2": "#149471",
-      "color_3": ""
+      "color_2": "#149488",
+      "color_3": "#FFFFFF"
     }
   },
   {
@@ -16,7 +16,7 @@
       "name": "Nordiques",
       "color_1": "#127DB8",
       "color_2": "#E11939",
-      "color_3": ""
+      "color_3": "#FFFFFF"
     }
   },
   {
@@ -26,7 +26,7 @@
       "name": "North Stars",
       "color_1": "#108349",
       "color_2": "#FBB838",
-      "color_3": ""
+      "color_3": "#FFFFFF"
     }
   },
   {
@@ -34,8 +34,8 @@
     "pk": 4,
     "fields": {
       "name": "Whalers",
-      "color_1": "#0E7B22",
-      "color_2": "#13207A",
+      "color_1": "#0E6B22",
+      "color_2": "#13206A",
       "color_3": "#C8CFC8"
     }
   },
@@ -44,9 +44,9 @@
     "pk": 5,
     "fields": {
       "name": "Americans",
-      "color_1": "#E03A3E",
-      "color_2": "#0060A9",
-      "color_3": ""
+      "color_1": "#D02222",
+      "color_2": "#0040A9",
+      "color_3": "#FFFFFF"
     }
   },
   {
@@ -54,9 +54,30 @@
     "pk": 6,
     "fields": {
       "name": "Mighty Ducks",
+      "active": false,
       "color_1": "#006A65",
-      "color_2": "#FDB827",
-      "color_3": "#51334B"
+      "color_2": "#51334B",
+      "color_3": "#FFFFFF"
+    }
+  },
+  {
+    "model": "seasons.team",
+    "pk": 7,
+    "fields": {
+      "name": "Tigers",
+      "color_1": "#EECC00",
+      "color_2": "#020202",
+      "color_3": "#FFFFFF"
+    }
+  },
+  {
+    "model": "seasons.team",
+    "pk": 8,
+    "fields": {
+      "name": "Maroons",
+      "color_1": "#5D1111",
+      "color_2": "#2A1111",
+      "color_3": "#FFFFFF"
     }
   }
 ]

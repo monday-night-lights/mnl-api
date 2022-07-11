@@ -11,6 +11,7 @@ djangorestframework = "*"
 gunicorn = "*"
 markdown = "*"
 psycopg2 = "*"
+pillow = "*"
 
 [dev-packages]
 
