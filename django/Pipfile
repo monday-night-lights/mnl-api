@@ -4,13 +4,15 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+boto3 = "*"
 django = "*"
+django-storages = "*"
 djangorestframework = "*"
-"psycopg2" = "*"
 gunicorn = "*"
 markdown = "*"
+psycopg2 = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.7"
+python_version = "3.8"

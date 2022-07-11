@@ -1,28 +1,18 @@
-FROM python:alpine
-ENV PYTHONUNBUFFERED 1
+FROM python:3.8
 
-RUN apk update && apk add bash
-RUN set -ex \
-  && apk add --no-cache \
-    gcc \
-    make \
-    libc-dev \
-    musl-dev \
-    linux-headers \
-    pcre-dev \
-    postgresql-dev \
-    postgresql-client \
-    python3-dev \
+RUN apt-get update
+RUN apt-get install -y \
+  netcat \
 ;
-
-WORKDIR /srv/mnl
-COPY Pipfile .
-COPY Pipfile.lock .
 
 RUN pip install pipenv
 ENV PATH $PATH:/root/.local/bin
 ENV PIP_NO_BINARY psycopg2
-RUN set -ex && pipenv install --deploy --system
+
+WORKDIR /srv/mnl
+COPY Pipfile .
+COPY Pipfile.lock .
+RUN set -ex && pipenv lock && pipenv install --deploy --system
 
 COPY . .
 ENTRYPOINT ["./entrypoint.sh"]
